@@ -13,8 +13,31 @@ class DetailScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          ImageContainer(
-            image: product.imagePath,
+          Stack(
+            children: <Widget>[
+              ImageContainer(
+                image: product.imagePath,
+              ),
+              SafeArea(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.black26,
+                      child: IconButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          )),
+                    ),
+                    FavoriteButton()
+                  ],
+                ),
+              )),
+            ],
           ),
           Container(
             margin: EdgeInsets.only(top: 16.0),
@@ -188,5 +211,25 @@ class ImageContainerScroll extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// Favorite Button
+class FavoriteButton extends StatefulWidget {
+  @override
+  _FavoriteButtonState createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () => {
+              setState(() {
+                isFavorite = !isFavorite;
+              })
+            },
+        icon: Icon(isFavorite ?  Icons.favorite :  Icons.favorite_border, color: Colors.red,));
   }
 }
