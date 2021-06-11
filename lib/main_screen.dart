@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelapp/card_item.dart';
+import 'package:travelapp/carousel_view.dart';
+
 import 'package:travelapp/item_list.dart';
 import 'package:travelapp/model/category_list.dart';
 
@@ -20,7 +22,15 @@ class MainScreen extends StatelessWidget {
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= 600) {
-            return FashionCategoryList();
+            return Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: CarouselView()),
+                  Expanded(child: FashionCategoryList())
+                ],
+              ),
+            );
           } else if (constraints.maxWidth <= 1200) {
             return FashionCategoryGrid(
               gridCount: 3,
