@@ -22,15 +22,16 @@ class MainScreen extends StatelessWidget {
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= 600) {
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(child: CarouselView()),
-                  Expanded(child: FashionCategoryList())
-                ],
-              ),
-            );
+            return FashionCategoryList();
+            // Container(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.stretch,
+            //     children: [
+            //       Expanded(child: CarouselView()),
+            //       Expanded(child: FashionCategoryList())
+            //     ],
+            //   ),
+            // );
           } else if (constraints.maxWidth <= 1200) {
             return FashionCategoryGrid(
               gridCount: 3,
@@ -45,10 +46,12 @@ class MainScreen extends StatelessWidget {
 class FashionCategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return 
+    
+    
+    ListView.builder(
       itemBuilder: (context, index) {
         final Category listCategory = CategoryList[index];
-
         return InkWell(
             onTap: () => {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {

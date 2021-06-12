@@ -34,7 +34,9 @@ class ItemsFashion {
   String imagePath;
   String category;
   String color;
+    List<String> itemsPhoto;
   String get getCategory => this.category;
+
 
   set setCategory(String category) => this.category = category;
 
@@ -59,7 +61,9 @@ class ItemsFashion {
       required this.price,
       required this.imagePath,
       required this.category,
-      required this.color});
+      required this.color,
+      required this.itemsPhoto,
+      });
 }
 
 var womanItems = [
@@ -70,6 +74,7 @@ var womanItems = [
     imagePath: "images/f1.webp",
     category: "Woman",
     color: "Multi-COlor",
+    itemsPhoto: ["images/f1a.webp", "images/f1b.webp", "images/f1.webp"]
   ),
   ItemsFashion(
     name: "FLOWY SHIRT",
@@ -79,6 +84,7 @@ var womanItems = [
     imagePath: "images/f2.webp",
     category: "Woman",
     color: "Multi-COlor",
+    itemsPhoto: ["images/f2a.webp", "images/f2b.webp", "images/f2.webp"]
   ),
   ItemsFashion(
     name: "FLOWY SHIRT",
@@ -88,6 +94,7 @@ var womanItems = [
     imagePath: "images/f2.webp",
     category: "Woman",
     color: "Multi-COlor",
+    itemsPhoto: ["images/f2a.webp", "images/f2b.webp", "images/f2.webp"]
   )
 ];
 
@@ -100,6 +107,7 @@ var manItems = [
     imagePath: "images/m1.webp",
     category: "Man",
     color: "Multi-COlor",
+    itemsPhoto: ["images/m1a.webp", "images/m1b.webp", "images/m1.webp"]
   ),
   ItemsFashion(
     name: "STRIPED SWEATER LIMITED EDITION",
@@ -109,6 +117,7 @@ var manItems = [
     imagePath: "images/m2.webp",
     category: "Man",
     color: "Multi-COlor",
+    itemsPhoto: ["images/m2a.jpg", "images/m2.webp", "images/m2a.jpg"]
   ),
   ItemsFashion(
     name: "LIMITED EDITION POCKET SHIRT",
@@ -118,6 +127,7 @@ var manItems = [
     imagePath: "images/m3.webp",
     category: "Man",
     color: "Multi-COlor",
+    itemsPhoto: ["images/m3a.webp", "images/m3b.webp", "images/m3.webp"]
   ),
 ];
 
@@ -130,6 +140,7 @@ var kidsItems = [
     imagePath: "images/k1.webp",
     category: "Girl Kids",
     color: "Multi-COlor",
+    itemsPhoto: ["images/k1a.webp", "images/k1b.webp", "images/k1.webp"]
   ),
   ItemsFashion(
     name: "BLEACHED DESTROYED SOFT DENIM SHORTS",
@@ -139,6 +150,7 @@ var kidsItems = [
     imagePath: "images/k2.webp",
     category: "Boy Kids",
     color: "Multi-COlor",
+    itemsPhoto: ["images/k2a.webp", "images/k2b.jpg", "images/k2.webp"]
   ),
   ItemsFashion(
     name: "BLEACHED DESTROYED SOFT DENIM SHORTS",
@@ -148,6 +160,7 @@ var kidsItems = [
     imagePath: "images/k2.webp",
     category: "Boy Kids",
     color: "Multi-COlor",
+    itemsPhoto: ["images/k2a.webp", "images/k2b.jpg", "images/k2.webp"]
   ),
 ];
 
@@ -160,6 +173,7 @@ var bagAndShoes = [
     imagePath: "images/bs1.webp",
     category: "Woman",
     color: "Multi-COlor",
+    itemsPhoto: ["images/bs1a.webp", "images/bs1b.webp", "images/bs1.webp"]
   ),
   ItemsFashion(
     name: "LOW HEEL FISHERMAN SANDALS",
@@ -169,6 +183,7 @@ var bagAndShoes = [
     imagePath: "images/bs2.webp",
     category: "Woman",
     color: "Multi-COlor",
+    itemsPhoto: ["images/bs2a.webp", "images/bs2b.webp", "images/bs2.webp"]
   ),
 ];
 
@@ -180,16 +195,19 @@ var accessories = [
     price: 1230.0,
     imagePath: "images/acc1.jpg",
     category: "Woman",
-    color: "Multi-COlor",
+    color: "Multi-Color",
+    itemsPhoto: ["images/acc1a.jpg", "images/acc1b.jpg", "images/acc1.jpg"]
   ),
   ItemsFashion(
     name: "Geometrical-frame sunglasses",
     description:
         "An eclectic shape frame defines these sunglasses including a wavy temple. The lightweight feel of the gold metal gives these a warm weather feel.",
     price: 420.0,
-    imagePath: "images/acc1.jpg",
+    imagePath: "images/acc2.jpg",
     category: "Unisex",
-    color: "Multi-COlor",
+    color: "Multi-Color",
+    itemsPhoto: ["images/acc2a.jpg", "images/acc2b.jpg", "images/acc2.jpg"]
+
   ),
 ];
 

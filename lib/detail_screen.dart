@@ -109,6 +109,10 @@ class ImageContainer extends StatelessWidget {
 }
 
 class ImageContainerScroll extends StatelessWidget {
+  final List<String> photos;
+
+  ImageContainerScroll({required this.photos});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -130,8 +134,7 @@ class ImageContainerScroll extends StatelessWidget {
                 padding: const EdgeInsets.all(4.0),
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(16.0),
-                    child: Image.network(
-                        'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg')),
+                    child: Image.asset(photos[0])),
               )),
           Container(
               decoration: BoxDecoration(
@@ -146,8 +149,7 @@ class ImageContainerScroll extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: ClipRRect(
-                    child: Image.network(
-                        'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
+                    child: Image.asset(photos[1]),
                     borderRadius: BorderRadius.circular(16.0),
                   ))),
           Container(
@@ -163,8 +165,7 @@ class ImageContainerScroll extends StatelessWidget {
             child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: ClipRRect(
-                  child: Image.network(
-                      'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
+                  child: Image.asset(photos[2]),
                   borderRadius: BorderRadius.circular(16.0),
                 )),
           )
@@ -250,7 +251,9 @@ class DetailMobilePage extends StatelessWidget {
             price: product.price,
           ),
           DescriptionBox(description: "${product.description}"),
-          ImageContainerScroll(),
+          ImageContainerScroll(
+            photos: product.itemsPhoto,
+          ),
         ],
       ),
     )));
@@ -326,10 +329,33 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                     isAlwaysShown: true,
                                     controller: _scrollController,
                                     child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      controller: _scrollController,
-                                      children: [],
-                                    ),
+                                        scrollDirection: Axis.horizontal,
+                                        controller: _scrollController,
+                                        children:
+                                            widget.product.itemsPhoto.map((e) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black12
+                                                          .withOpacity(0.02),
+                                                      blurRadius: 3.0,
+                                                      offset: Offset(0, 0),
+                                                      spreadRadius: 0)
+                                                ]),
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: ClipRRect(
+                                                  child: Image.asset(e),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0),
+                                                )),
+                                          );
+                                        }).toList()),
                                   ))
                             ],
                           )),
@@ -373,7 +399,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                 children: <Widget>[
                                   Icon(Icons.monetization_on),
                                   SizedBox(width: 8.0),
-                                  Text(widget.product.color)
+                                  Text("\$ ${widget.product.price}")
                                 ],
                               ),
                               Container(
