@@ -47,34 +47,60 @@ class ActionBar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      
+       
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Icon(Icons.checkroom),
-              Text("$category"),
-              SizedBox(
-                height: 8.0,
-              )
-            ],
+          Expanded(
+            
+            child: Column(
+              children: <Widget>[
+                TextButton(onPressed: () {}, 
+                child: Text("S", 
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black
+                ) )),
+                // Icon(Icons.checkroom),
+                // Text("$category"),
+                SizedBox(
+                  height: 8.0,
+                )
+              ],
+            ),
           ),
-          Column(
-            children: <Widget>[
-              Icon(Icons.palette),
-              Text("$color"),
-              SizedBox(
-                height: 8.0,
-              )
-            ],
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                TextButton(onPressed: () {}, 
+                child: Text("M", 
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black
+                ) )),
+                // Icon(Icons.checkroom),
+                // Text("$category"),
+                SizedBox(
+                  height: 8.0,
+                )
+              ],
+            ),
           ),
-          Column(
-            children: <Widget>[
-              Icon(Icons.monetization_on),
-              Text("\$ $price"),
-              SizedBox(
-                height: 8.0,
-              )
-            ],
+          Expanded(
+            child: Column(
+               children: <Widget>[
+                TextButton(onPressed: () {}, 
+                child: Text("L", 
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black
+                ) )),
+                // Icon(Icons.checkroom),
+                // Text("$category"),
+                SizedBox(
+                  height: 8.0,
+                )
+              ],
+            ),
           )
         ],
       ),
@@ -88,10 +114,11 @@ class DescriptionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(left: 20.0, top: 10),
       child: Text(
         description,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(color: Colors.black45, fontSize: 16.0),
       ),
     );
@@ -106,7 +133,7 @@ class ImageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       image,
-      height: 350,
+      height: 400,
       fit: BoxFit.cover,
       width: MediaQuery.of(context).size.width,
     );
@@ -252,13 +279,24 @@ class DetailMobilePage extends StatelessWidget {
               
               ),
               margin: EdgeInsets.only(top: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text("\$ ${product.price}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),),
+                  ),
+                  SizedBox(height: 10,),
+                  Padding(
                     padding: const EdgeInsets.only(left: 20 ),
-                    child: Text("${product.name}")),
-                  Text("\$ ${product.price}")
+                    child: Text("${product.name}",
+                    style: TextStyle(
+                      fontSize: 28
+                    ),)),
                 ],
               )),
               DescriptionBox(description: "${product.description}"),
