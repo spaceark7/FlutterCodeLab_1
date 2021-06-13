@@ -17,13 +17,23 @@ class ItemList extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("$category Size : ${MediaQuery.of(context).size.width}"),
+          title: Text("$category Collection", 
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22),
+      ),
         ),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= 800) {
-            return FashionItemView(
-                category: category, items: items, gridCount: 2);
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: FashionItemView(
+                category: category, items: items, gridCount: 2),
+
+            )
+            
+            ;
           } else if (constraints.maxWidth <= 1200) {
             return FashionItemView(
                 category: category, items: items, gridCount: 3);

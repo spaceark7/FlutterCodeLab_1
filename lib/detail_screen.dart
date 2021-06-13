@@ -104,7 +104,12 @@ class ImageContainer extends StatelessWidget {
   ImageContainer({required this.image});
   @override
   Widget build(BuildContext context) {
-    return Image.asset(image);
+    return Image.asset(
+      image,
+      height: 350,
+      fit: BoxFit.cover,
+      width: MediaQuery.of(context).size.width,
+    );
   }
 }
 
@@ -183,10 +188,12 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool isFavorite = false;
+  final snackbar = SnackBar(content: Text("You Liked This Product!"));
   @override
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () => {
+              ScaffoldMessenger.of(context).showSnackBar(snackbar),
               setState(() {
                 isFavorite = !isFavorite;
               })
@@ -240,17 +247,27 @@ class DetailMobilePage extends StatelessWidget {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 16.0),
-            child: TitleName(
-              text: "${product.name}",
-            ),
-          ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft:Radius.circular(10), topRight: Radius.circular(10)),
+              
+              ),
+              margin: EdgeInsets.only(top: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20 ),
+                    child: Text("${product.name}")),
+                  Text("\$ ${product.price}")
+                ],
+              )),
+              DescriptionBox(description: "${product.description}"),
           ActionBar(
             category: product.category,
             color: product.color,
             price: product.price,
           ),
-          DescriptionBox(description: "${product.description}"),
+          
           ImageContainerScroll(
             photos: product.itemsPhoto,
           ),

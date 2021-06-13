@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travelapp/card_item.dart';
+import 'package:travelapp/carousel_view.dart';
 import 'package:travelapp/item_list.dart';
 import 'package:travelapp/model/category_list.dart';
 
@@ -9,19 +10,38 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "B.co Fashion Store Size : ${MediaQuery.of(context).size.width}",
+            "B.co Fashion Store",
             style: TextStyle(
                 fontSize: 22.0,
                 fontFamily: "Montserrat",
                 fontWeight: FontWeight.bold,
-                color: Colors.yellow),
+                color: Colors.white),
           ),
         ),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= 600) {
-            return FashionCategoryList();
-<<<<<<< HEAD
+            return SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[CarouselView(),
+                SizedBox(height: 10,),
+                Text("Category",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold
+            
+                ),),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: FashionCategoryList()) 
+                // Expanded(child: 
+                //   FashionCategoryList() , )
+                  ],
+              ),
+            ));
             // Container(
             //   child: Column(
             //     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,14 +51,51 @@ class MainScreen extends StatelessWidget {
             //     ],
             //   ),
             // );
-=======
->>>>>>> 1117f81adac4d40328bf154a7c536b7042dabc94
           } else if (constraints.maxWidth <= 1200) {
-            return FashionCategoryGrid(
-              gridCount: 3,
-            );
+            return SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[CarouselView(),
+                SizedBox(height: 10,),
+                Text("Category",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold
+            
+                ),),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: FashionCategoryGrid(gridCount: 3)) 
+                // Expanded(child: 
+                //   FashionCategoryList() , )
+                  ],
+              ),
+            ));
+            
           } else {
-            return FashionCategoryGrid(gridCount: 5);
+            return  SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[CarouselView(),
+                SizedBox(height: 10,),
+                Text("Category",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold
+            
+                ),),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: FashionCategoryGrid(gridCount: 5)) 
+                // Expanded(child: 
+                //   FashionCategoryList() , )
+                  ],
+              ),
+            ));
           }
         }));
   }
@@ -47,10 +104,9 @@ class MainScreen extends StatelessWidget {
 class FashionCategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    
-    
-    ListView.builder(
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemBuilder: (context, index) {
         final Category listCategory = CategoryList[index];
         return InkWell(
@@ -76,11 +132,11 @@ class FashionCategoryGrid extends StatelessWidget {
   FashionCategoryGrid({required this.gridCount});
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-        isAlwaysShown: true,
-        child: Padding(
+    return 
+         Padding(
           padding: const EdgeInsets.all(24.0),
           child: GridView.count(
+            shrinkWrap: true,
             crossAxisCount: gridCount,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
@@ -105,9 +161,10 @@ class FashionCategoryGrid extends StatelessWidget {
                         height: 8.0,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.all( 8.0),
                         child: Text(
                           category.name,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 22.0, fontWeight: FontWeight.bold),
                         ),
@@ -118,6 +175,6 @@ class FashionCategoryGrid extends StatelessWidget {
               );
             }).toList(),
           ),
-        ));
+        );
   }
 }
