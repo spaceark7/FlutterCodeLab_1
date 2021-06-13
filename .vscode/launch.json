@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
+<<<<<<< HEAD
       "name": "travelapp",
       "request": "launch",
       "type": "dart",
@@ -15,6 +16,17 @@
       "request": "launch",
       "type": "dart",
       "args": ["--no-sound-null-safety", "--enable-experiment=non-nullable"],
+=======
+      "name": "FlutterCodeLab_1",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--no-sound-null-safety"]
+    },
+    {
+      "name": "FlutterCodeLab_1 (profile mode)",
+      "request": "launch",
+      "type": "dart",
+>>>>>>> 1117f81adac4d40328bf154a7c536b7042dabc94
       "flutterMode": "profile"
     }
   ]
