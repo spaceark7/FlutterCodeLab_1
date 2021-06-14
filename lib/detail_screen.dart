@@ -32,7 +32,7 @@ class TitleName extends StatelessWidget {
   }
 }
 
-class ActionBar extends StatelessWidget {
+class ActionBar extends StatefulWidget {
   final String category;
   final String color;
   final double price;
@@ -42,68 +42,48 @@ class ActionBar extends StatelessWidget {
     required this.color,
     required this.price,
   });
+
+  @override
+  _ActionBarState createState() => _ActionBarState();
+}
+
+class _ActionBarState extends State<ActionBar> {
+  int selectedSize = 0;
+  var sizeList = ["S", "M", "L"];
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
-      
-       
         children: <Widget>[
-          Expanded(
-            
-            child: Column(
-              children: <Widget>[
-                TextButton(onPressed: () {}, 
-                child: Text("S", 
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black
-                ) )),
-                // Icon(Icons.checkroom),
-                // Text("$category"),
-                SizedBox(
-                  height: 8.0,
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                TextButton(onPressed: () {}, 
-                child: Text("M", 
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black
-                ) )),
-                // Icon(Icons.checkroom),
-                // Text("$category"),
-                SizedBox(
-                  height: 8.0,
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-               children: <Widget>[
-                TextButton(onPressed: () {}, 
-                child: Text("L", 
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black
-                ) )),
-                // Icon(Icons.checkroom),
-                // Text("$category"),
-                SizedBox(
-                  height: 8.0,
-                )
-              ],
-            ),
-          )
+          ...List.generate(
+              sizeList.length, (index) => Expanded(child: sizeSelect(index))),
         ],
       ),
+    );
+  }
+
+  GestureDetector sizeSelect(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedSize = index;
+        });
+      },
+      child: Container(
+          child: TextButton(
+              onPressed: () {
+                setState(() {
+                  selectedSize = index;
+                });
+              },
+              child: Text("${sizeList[index]}",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: selectedSize == index
+                          ? Colors.black
+                          : Colors.black26)))),
     );
   }
 }
@@ -274,9 +254,10 @@ class DetailMobilePage extends StatelessWidget {
             ],
           ),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft:Radius.circular(10), topRight: Radius.circular(10)),
-              
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
               ),
               margin: EdgeInsets.only(top: 16.0),
               child: Column(
@@ -284,28 +265,36 @@ class DetailMobilePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
-                    child: Text("\$ ${product.price}",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),),
+                    child: Text(
+                      "\$ ${product.price}",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20 ),
-                    child: Text("${product.name}",
-                    style: TextStyle(
-                      fontSize: 28
-                    ),)),
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        "${product.name}",
+                        style: TextStyle(fontSize: 28),
+                      )),
                 ],
               )),
-              DescriptionBox(description: "${product.description}"),
+          DescriptionBox(description: "${product.description}"),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, top: 30),
+            child: SizedBox(
+              height: 10,
+              child: (Text("Available size :")),
+            ),
+          ),
           ActionBar(
             category: product.category,
             color: product.color,
             price: product.price,
           ),
-          
           ImageContainerScroll(
             photos: product.itemsPhoto,
           ),
@@ -325,6 +314,8 @@ class DetailWebPage extends StatefulWidget {
 }
 
 class _DetailWebPageState extends State<DetailWebPage> {
+  final List<String> sizeList = ["S", "M", "L"];
+  int selectedSize = 0;
   final _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -420,43 +411,53 @@ class _DetailWebPageState extends State<DetailWebPage> {
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             children: <Widget>[
-                              Container(
-                                child: Text(
-                                  widget.product.name,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                  ),
-                                ),
-                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(Icons.checkroom),
-                                      SizedBox(width: 8.0),
-                                      Text(widget.product.category)
-                                    ],
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      child: Text(
+                                        widget.product.name,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  FavoriteButton(),
+                                  Expanded(flex: 1, child: FavoriteButton())
                                 ],
                               ),
                               Row(
-                                children: <Widget>[
-                                  Icon(Icons.palette),
-                                  SizedBox(width: 8.0),
-                                  Text(widget.product.color)
+                                children: [
+                                  Text(
+                                    "\$${widget.product.price}",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  )
                                 ],
+                              ),
+                              SizedBox(height: 20, 
+                              
                               ),
                               Row(
-                                children: <Widget>[
-                                  Icon(Icons.monetization_on),
-                                  SizedBox(width: 8.0),
-                                  Text("\$ ${widget.product.price}")
+                                children: [
+                                  Container(
+                                    child: Text("Available Size",
+                                    textAlign: TextAlign.start,),
+                                  ),
                                 ],
                               ),
+                              SizedBox(height: 10,),
+                              Row(
+                                children : [
+                                  ...List.generate(sizeList.length, (index) => sizeSelect(index))
+                                 ]
+                              ),
+                              
                               Container(
                                 padding: EdgeInsets.symmetric(vertical: 16.0),
                                 child: Text(
@@ -477,6 +478,29 @@ class _DetailWebPageState extends State<DetailWebPage> {
             ),
           )),
     )));
+  }
+
+  GestureDetector sizeSelect(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedSize = index;
+        });
+      },
+      child: Container(
+          child: TextButton(
+              onPressed: () {
+                setState(() {
+                  selectedSize = index;
+                });
+              },
+              child: Text("${sizeList[index]}",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: selectedSize == index
+                          ? Colors.black
+                          : Colors.black26)))),
+    );
   }
 
   @override
